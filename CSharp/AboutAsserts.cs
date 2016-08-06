@@ -32,7 +32,7 @@ namespace DotNetKoans.CSharp
         public void ABetterWayOfAssertingEquality() 
         {
             var expectedValue = 3;
-            var actualValue = 1 + 2;
+            var actualValue = 1 + 2 ;
             Assert.Equal(expectedValue, actualValue);
         }
 

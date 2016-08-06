@@ -12,12 +12,12 @@ namespace DotNetKoans.CSharp
         public void CreatingArrays()
         {
             var empty_array = new object[] { };
-            Assert.Equal(typeof(FillMeIn), empty_array.GetType());
+            Assert.Equal(typeof(object[]), empty_array.GetType());
 
             //Note that you have to explicitly check for subclasses
             Assert.True(typeof(Array).IsAssignableFrom(empty_array.GetType()));
 
-            Assert.Equal(FILL_ME_IN, empty_array.Length);
+            Assert.Equal(0, empty_array.Length);
         }
 
         [Koan(2)]
@@ -29,13 +29,13 @@ namespace DotNetKoans.CSharp
             Assert.Equal(new int[] { 42 }, array);
 
             //Are arrays 0-based or 1-based?
-            Assert.Equal(42, array[((int)FILL_ME_IN)]);
+            Assert.Equal(42, array[0]);
 
             //This is important because...
             Assert.True(array.IsFixedSize);
 
             //...it means we can't do this: array[1] = 13;
-            Assert.Throws(typeof(FillMeIn), delegate() { array[1] = 13; });
+            Assert.Throws(typeof(System.IndexOutOfRangeException), delegate() { array[1] = 13; });
 
             //This is because the array is fixed at length 1. You could write a function
             //which created a new array bigger than the last, copied the elements over, and
@@ -45,7 +45,7 @@ namespace DotNetKoans.CSharp
             Assert.Equal(array, dynamicArray.ToArray());
 
             dynamicArray.Add(13);
-            Assert.Equal((new int[] { 42, (int)FILL_ME_IN}), dynamicArray.ToArray());
+            Assert.Equal((new int[] { 42, 13}), dynamicArray.ToArray());
         }
 
         [Koan(3)]
@@ -53,8 +53,8 @@ namespace DotNetKoans.CSharp
         {
             var array = new[] { "peanut", "butter", "and", "jelly" };
 
-            Assert.Equal(FILL_ME_IN, array[0]);
-            Assert.Equal(FILL_ME_IN, array[3]);
+            Assert.Equal("peanut", array[0]);
+            Assert.Equal("jelly", array[3]);
             
             //This doesn't work: Assert.Equal(FILL_ME_IN, array[-1]);
         }
@@ -64,8 +64,8 @@ namespace DotNetKoans.CSharp
         {
             var array = new[] { "peanut", "butter", "and", "jelly" };
 
-			Assert.Equal(new string[] { (string)FILL_ME_IN, (string)FILL_ME_IN }, array.Take(2).ToArray());
-			Assert.Equal(new string[] { (string)FILL_ME_IN, (string)FILL_ME_IN }, array.Skip(1).Take(2).ToArray());
+			Assert.Equal(new string[] { "peanut", "butter" }, array.Take(2).ToArray());
+			Assert.Equal(new string[] { "butter", "and" }, array.Skip(1).Take(2).ToArray());
         }
     }
 }
